@@ -63,8 +63,8 @@ class Trainer:
                 for batch_no, data_entry in enumerate(it, start=1):
                     optimizer.zero_grad()
 
-                    inputs = [v.to(self.device) for v in data_entry.values()]
-                    output = net(*inputs)
+                    inputs = {k: v.to(self.device) for k, v in data_entry.items()}
+                    output = net(**inputs)
 
                     if isinstance(output, (list, tuple)):
                         loss = output[0]
